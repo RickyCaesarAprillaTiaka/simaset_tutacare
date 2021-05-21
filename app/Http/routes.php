@@ -48,4 +48,10 @@ Route::resource('dashboard/material', 'MaterialController');
 
 // Proyek
 Route::resource('dashboard/proyek', 'ProyekController');
+Route::get('dashboard/proyek/{id_proyek}/material', ['as' => 'dashboard.proyek.material.index', 'uses' => 'ProyekController@indexMaterialProyek']);
+Route::get('dashboard/proyek/{id_proyek}/material/create', ['as' => 'dashboard.proyek.material.create', 'uses' => 'ProyekController@createMaterialProyek']);
+Route::post('dashboard/proyek/{id_proyek}/material', ['as' => 'dashboard.proyek.material.store', 'uses' => 'ProyekController@storeMaterialProyek']);
+Route::get('dashboard/proyek/{id_proyek}/material/{id_material}/edit', ['as' => 'dashboard.proyek.material.edit', 'uses' => 'ProyekController@editMaterialProyek']);
+Route::put('dashboard/proyek/{id_proyek}/material/{id_material}', ['as' => 'dashboard.proyek.material.update', 'uses' => 'ProyekController@updateMaterialProyek']);
+Route::delete('dashboard/proyek/{id_proyek}/material/{id_material}', ['as' => 'dashboard.proyek.material.destroy', 'uses' => 'ProyekController@destroyMaterialProyek']);
 });

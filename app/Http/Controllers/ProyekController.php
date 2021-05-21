@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Proyek, App\Status;
+use App\Proyek, App\Status, App\MaterialProyek, App\Material;
 use Session, Redirect;
 
 class ProyekController extends Controller
@@ -58,7 +58,8 @@ class ProyekController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.proyek.show');
+        $proyek = Proyek::findOrFail($id);
+        return view('dashboard.proyek.show', compact('proyek'));
     }
 
     /**
@@ -106,5 +107,116 @@ class ProyekController extends Controller
         $proyek->delete();
         Session::flash('message', 'Menghapus Proyek Sukses!');
         return Redirect::to('dashboard/proyek');
+    }
+
+    public function indexMaterialProyek($id_proyek)
+    {
+        $proyek = Proyek::findOrFail($id_proyek);
+        $material_proyek = MaterialProyek::where('id_proyek', $id_proyek)->get();
+        return view('dashboard.proyek.material.index', compact('proyek', 'material_proyek'));
+    }
+
+    public function createMaterialProyek($id_proyek)
+    {
+        $proyek = Proyek::findOrFail($id_proyek);
+        $material = Material::all();
+        return view('dashboard.proyek.material.create', compact('proyek', 'material'));
+    }
+
+    public function storeMaterialProyek(Request $request, $id_proyek)
+    {
+        foreach ($request->material as $key => $value) {
+            $material_proyek = new MaterialProyek;
+            $material_proyek->id_material = $value;
+            $material_proyek->jumlah = $request->jumlah_material[array_search($value, $request->material)];
+            $material_proyek->id_proyek = $id_proyek;
+            $material_proyek->save();
+        }
+        Session::flash('message', 'Menambah Material Proyek Sukses!');
+        return Redirect::to('dashboard/proyek/'.$id_proyek.'/material');
+    }
+
+    public function editMaterialProyek($id_proyek, $id_material)
+    {
+        $proyek = Proyek::findOrFail($id_proyek);
+        $material_proyek = MaterialProyek::findOrFail($id_material);
+        return view('dashboard.proyek.material.edit', compact('proyek', 'material_proyek'));
+    }
+    
+    public function updateMaterialProyek(Request $request, $id_proyek, $id_material)
+    {
+        $material_proyek = MaterialProyek::findOrFail($id_material);
+        $material_proyek->jumlah = $request->jumlah;
+        $material_proyek->save();
+        Session::flash('message', 'Mengganti Material Proyek Sukses!');
+        return Redirect::to('dashboard/proyek/'.$id_proyek.'/material');
+    }
+
+    public function destroyMaterialProyek($id_proyek, $id_material)
+    {
+        $material_proyek = MaterialProyek::findOrFail($id_material);
+        $material_proyek->delete();
+        Session::flash('message', 'Menghapus Material Proyek Sukses!');
+        return Redirect::to('dashboard/proyek/'.$id_proyek.'/material');
+    }
+
+    public function indexScheduleProyek()
+    {
+        
+    }
+
+    public function createScheduleProyek()
+    {
+        
+    }
+
+    public function storeScheduleProyek()
+    {
+        
+    }
+
+    public function editScheduleProyek($id)
+    {
+        
+    }
+    
+    public function updateScheduleProyek(Request $request, $id)
+    {
+        
+    }
+
+    public function destroyScheduleProyek($id)
+    {
+        
+    }
+
+    public function indexProgressProyek()
+    {
+        
+    }
+
+    public function createProgressProyek()
+    {
+        
+    }
+
+    public function storeProgressProyek()
+    {
+        
+    }
+
+    public function editProgressProyek($id)
+    {
+        
+    }
+    
+    public function updateProgressProyek(Request $request, $id)
+    {
+        
+    }
+
+    public function destroyProgressProyek($id)
+    {
+        
     }
 }
