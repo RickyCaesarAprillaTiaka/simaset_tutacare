@@ -36,8 +36,8 @@ $(document).ready(function() {
 <div class="box">
 	<div class="box-header">
 		<h3 class="box-title">
-		<a href="/dashboard/proyek/{{$proyek->id}}/material/create" class="btn btn-primary btn-sm" id="btn-add"><i class="fa fa-plus"></i> Tambah Material</a>
-        <a href="/dashboard/material/create" class="btn btn-success btn-sm" id="btn-add"><i class="fa fa-download"></i> Download PDF</a>
+		<a href="{{route('dashboard.proyek.material.create', ['id_proyek' => $proyek->id])}}" class="btn btn-primary btn-sm" id="btn-add"><i class="fa fa-plus"></i> Tambah Material</a>
+        <a href="javascript:void(0)" class="btn btn-success btn-sm" id="btn-add"><i class="fa fa-download"></i> Download PDF</a>
 		</h3>
 	</div>
 	<!-- /.box-header -->

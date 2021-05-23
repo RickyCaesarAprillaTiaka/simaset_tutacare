@@ -32,20 +32,19 @@
     <div class="box-body">
         <div class="row">
             {!! Form::open(array('route' => ['dashboard.proyek.material.store', 'id_proyek' => $proyek->id], 'method' => 'POST', 'enctype' => 'multipart/form-data')) !!}
-            <div class="row">
-                @foreach ($material as $key => $value)
-                <div class="form-control container" style="width:50%;">
-                    <div class="col-xs-6">
-                        {{Form::checkbox('material[]', $value->id, null, ['onclick' => 'if (document.getElementById("material'.$key.'").disabled == true) {document.getElementById("material'.$key.'").disabled = false;} else {document.getElementById("material'.$key.'").disabled = true;}'])}}
-                        {{Form::label('material', $value->nama_material)}}
-                    </div>
-                    <div class="col-xs-6">
-                        {!! Form::input('number', 'jumlah_material[]', null, ['id'=>'material'.$key, 'disabled' => 'true']) !!}
-                    </div>
-                </div>
-                @endforeach
-            </div>
-
+            <table class="container" style="width:50vw;" border="2px">
+            @foreach ($material as $key => $value)
+            <tr>
+                <td width="60%" style="padding: 5px;">
+                    {{Form::checkbox('material[]', $value->id, null, ['onclick' => 'if (document.getElementById("material'.$key.'").disabled == true) {document.getElementById("material'.$key.'").disabled = false;} else {document.getElementById("material'.$key.'").disabled = true;}'])}}
+                    {{Form::label('material', $value->nama_material)}}
+                </td>
+                <td align="center" width="10%">
+                    {!! Form::input('number', 'jumlah_material[]', null, ['id'=>'material'.$key, 'disabled' => 'true']) !!}
+                </td>
+            </tr>
+                @endforeach  
+            </table>
         </div>
         <div class="row">
             <div class="col-xs-12">

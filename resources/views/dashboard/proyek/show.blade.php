@@ -31,9 +31,9 @@
 <div class="box">
     <div class="box-body">
         <div class="container mx-auto" style="width:20vw;">
-            <a href="{{route('dashboard.proyek.material.index', ['id_proyek' => $proyek->id])}}" class="btn btn-success" style="width: 100%; margin-bottom: 10px;">Material</a>
-            <a class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Schedule</a>
-            <a class="btn btn-danger" style="width: 100%;">Progress</a>
+            <a href="{{route('dashboard.proyek.material.index', ['id_proyek' => $proyek->id])}}" class="btn btn-success" style="width: 100%; margin-bottom: 10px;">Material <small class="label bg-yellow">{{Asset::materialProyekCount($proyek->id)}}</small></a>
+            <a href="{{route('dashboard.proyek.schedule.index', ['id_proyek' => $proyek->id])}}" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Schedule <small class="label bg-yellow">{{Asset::scheduleProyekCount($proyek->id)}}</small></a>
+            <a class="btn btn-danger" style="width: 100%;">Progress <small class="label bg-yellow">{{Asset::proyekCount()}}</small></a>
         </div>
     </div>
 </div>

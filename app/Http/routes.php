@@ -48,10 +48,20 @@ Route::resource('dashboard/material', 'MaterialController');
 
 // Proyek
 Route::resource('dashboard/proyek', 'ProyekController');
+
+// Material Proyek
 Route::get('dashboard/proyek/{id_proyek}/material', ['as' => 'dashboard.proyek.material.index', 'uses' => 'ProyekController@indexMaterialProyek']);
 Route::get('dashboard/proyek/{id_proyek}/material/create', ['as' => 'dashboard.proyek.material.create', 'uses' => 'ProyekController@createMaterialProyek']);
 Route::post('dashboard/proyek/{id_proyek}/material', ['as' => 'dashboard.proyek.material.store', 'uses' => 'ProyekController@storeMaterialProyek']);
 Route::get('dashboard/proyek/{id_proyek}/material/{id_material}/edit', ['as' => 'dashboard.proyek.material.edit', 'uses' => 'ProyekController@editMaterialProyek']);
 Route::put('dashboard/proyek/{id_proyek}/material/{id_material}', ['as' => 'dashboard.proyek.material.update', 'uses' => 'ProyekController@updateMaterialProyek']);
 Route::delete('dashboard/proyek/{id_proyek}/material/{id_material}', ['as' => 'dashboard.proyek.material.destroy', 'uses' => 'ProyekController@destroyMaterialProyek']);
+
+// Schedule Proyek
+Route::get('dashboard/proyek/{id_proyek}/schedule', ['as' => 'dashboard.proyek.schedule.index', 'uses' => 'ProyekController@indexScheduleProyek']);
+Route::get('dashboard/proyek/{id_proyek}/schedule/create', ['as' => 'dashboard.proyek.schedule.create', 'uses' => 'ProyekController@createScheduleProyek']);
+Route::post('dashboard/proyek/{id_proyek}/schedule', ['as' => 'dashboard.proyek.schedule.store', 'uses' => 'ProyekController@storeScheduleProyek']);
+Route::get('dashboard/proyek/{id_proyek}/schedule/{id_schedule}/edit', ['as' => 'dashboard.proyek.schedule.edit', 'uses' => 'ProyekController@editScheduleProyek']);
+Route::put('dashboard/proyek/{id_proyek}/schedule/{id_schedule}', ['as' => 'dashboard.proyek.schedule.update', 'uses' => 'ProyekController@updateScheduleProyek']);
+Route::delete('dashboard/proyek/{id_proyek}/schedule/{id_schedule}', ['as' => 'dashboard.proyek.schedule.destroy', 'uses' => 'ProyekController@destroyScheduleProyek']);
 });

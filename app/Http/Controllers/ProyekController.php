@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Proyek, App\Status, App\MaterialProyek, App\Material;
+use App\Proyek, App\Status, App\Material, App\MaterialProyek, App\ScheduleProyek;
 use Session, Redirect;
 
 class ProyekController extends Controller
@@ -160,34 +160,54 @@ class ProyekController extends Controller
         return Redirect::to('dashboard/proyek/'.$id_proyek.'/material');
     }
 
-    public function indexScheduleProyek()
+    public function indexScheduleProyek($id_proyek)
     {
-        
+        $proyek = Proyek::findOrFail($id_proyek);
+        $schedule_proyek = ScheduleProyek::where('id_proyek', $id_proyek)->get();
+        return view('dashboard.proyek.schedule.index', compact('proyek', 'schedule_proyek'));
     }
 
-    public function createScheduleProyek()
+    public function createScheduleProyek($id_proyek)
     {
-        
+        $proyek = Proyek::findOrFail($id_proyek);
+        return view('dashboard.proyek.schedule.create', compact('proyek', 'id_proyek'));
     }
 
-    public function storeScheduleProyek()
+    public function storeScheduleProyek(Request $request, $id_proyek)
     {
-        
+        $schedule_proyek = new ScheduleProyek;
+        $schedule_proyek->tanggal_mulai = date('Y-m-d', strtotime($request->tanggal_mulai));
+        $schedule_proyek->tanggal_selesai = date('Y-m-d', strtotime($request->tanggal_selesai));
+        $schedule_proyek->schedule = $request->schedule;
+        $schedule_proyek->id_proyek = $id_proyek;
+        $schedule_proyek->save();
+        Session::flash('message', 'Menambah Material Schedule Sukses!');
+        return Redirect::to('dashboard/proyek/'.$id_proyek.'/schedule');
     }
 
-    public function editScheduleProyek($id)
+    public function editScheduleProyek($id_proyek, $id_schedule)
     {
-        
+        $proyek = Proyek::findOrFail($id_proyek);
+        $schedule_proyek = ScheduleProyek::findOrFail($id_schedule);
+        return view('dashboard.proyek.schedule.edit', compact('proyek', 'schedule_proyek'));
     }
     
-    public function updateScheduleProyek(Request $request, $id)
+    public function updateScheduleProyek(Request $request, $id_proyek, $id_schedule)
     {
-        
+        $schedule_proyek = ScheduleProyek::findOrFail($id_schedule);
+        $schedule_proyek->tanggal_mulai = date('Y-m-d', strtotime($request->tanggal_mulai));
+        $schedule_proyek->tanggal_selesai = date('Y-m-d', strtotime($request->tanggal_selesai));
+        $schedule_proyek->save();
+        Session::flash('message', 'Mengganti Schedule Proyek Sukses!');
+        return Redirect::to('dashboard/proyek/'.$id_proyek.'/schedule');
     }
 
-    public function destroyScheduleProyek($id)
+    public function destroyScheduleProyek($id_proyek, $id_schedule)
     {
-        
+        $schedule_proyek = ScheduleProyek::findOrFail($id_schedule);
+        $schedule_proyek->delete();
+        Session::flash('message', 'Menghapus Schedule Proyek Sukses!');
+        return Redirect::to('dashboard/proyek/'.$id_proyek.'/schedule');
     }
 
     public function indexProgressProyek()

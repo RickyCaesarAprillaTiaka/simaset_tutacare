@@ -31,7 +31,7 @@
       <li>
         <a href="/dashboard/proyek">
           <i class="fa fa-th"></i> <span>Proyek</span>
-          <small class="label pull-right bg-red">{{Asset::assetCount()}}</small>
+          <small class="label pull-right bg-red">{{Asset::proyekCount()}}</small>
         </a>
       </li>
 
