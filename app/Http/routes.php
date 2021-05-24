@@ -64,4 +64,12 @@ Route::post('dashboard/proyek/{id_proyek}/schedule', ['as' => 'dashboard.proyek.
 Route::get('dashboard/proyek/{id_proyek}/schedule/{id_schedule}/edit', ['as' => 'dashboard.proyek.schedule.edit', 'uses' => 'ProyekController@editScheduleProyek']);
 Route::put('dashboard/proyek/{id_proyek}/schedule/{id_schedule}', ['as' => 'dashboard.proyek.schedule.update', 'uses' => 'ProyekController@updateScheduleProyek']);
 Route::delete('dashboard/proyek/{id_proyek}/schedule/{id_schedule}', ['as' => 'dashboard.proyek.schedule.destroy', 'uses' => 'ProyekController@destroyScheduleProyek']);
+
+// Schedule Proyek
+Route::get('dashboard/proyek/{id_proyek}/progress', ['as' => 'dashboard.proyek.progress.index', 'uses' => 'ProyekController@indexProgressProyek']);
+Route::get('dashboard/proyek/{id_proyek}/progress/create', ['as' => 'dashboard.proyek.progress.create', 'uses' => 'ProyekController@createProgressProyek']);
+Route::post('dashboard/proyek/{id_proyek}/progress', ['as' => 'dashboard.proyek.progress.store', 'uses' => 'ProyekController@storeProgressProyek']);
+Route::get('dashboard/proyek/{id_proyek}/progress/{id_progress}/edit', ['as' => 'dashboard.proyek.progress.edit', 'uses' => 'ProyekController@editProgressProyek']);
+Route::put('dashboard/proyek/{id_proyek}/progress/{id_progress}', ['as' => 'dashboard.proyek.progress.update', 'uses' => 'ProyekController@updateProgressProyek']);
+Route::delete('dashboard/proyek/{id_proyek}/progress/{id_progress}', ['as' => 'dashboard.proyek.progress.destroy', 'uses' => 'ProyekController@destroyProgressProyek']);
 });

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Proyek, App\Status, App\Material, App\MaterialProyek, App\ScheduleProyek;
+use App\Proyek, App\Status, App\Material, App\MaterialProyek, App\ScheduleProyek, App\ProgressProyek;
 use Session, Redirect;
 
 class ProyekController extends Controller
@@ -170,7 +170,7 @@ class ProyekController extends Controller
     public function createScheduleProyek($id_proyek)
     {
         $proyek = Proyek::findOrFail($id_proyek);
-        return view('dashboard.proyek.schedule.create', compact('proyek', 'id_proyek'));
+        return view('dashboard.proyek.schedule.create', compact('proyek'));
     }
 
     public function storeScheduleProyek(Request $request, $id_proyek)
@@ -210,33 +210,59 @@ class ProyekController extends Controller
         return Redirect::to('dashboard/proyek/'.$id_proyek.'/schedule');
     }
 
-    public function indexProgressProyek()
+    public function indexProgressProyek($id_proyek)
     {
-        
+        $proyek = Proyek::findOrFail($id_proyek);
+        $progress_proyek = ProgressProyek::where('id_proyek', $id_proyek)->get();
+        return view('dashboard.proyek.progress.index', compact('proyek', 'progress_proyek'));
     }
 
-    public function createProgressProyek()
+    public function createProgressProyek($id_proyek)
     {
-        
+        $proyek = Proyek::findOrFail($id_proyek);
+        $status_proyek   = [''=>'--Pilih Status--'] + Status::pluck('name', 'id')->all();
+        return view('dashboard.proyek.progress.create', compact('proyek', 'status_proyek'));
     }
 
-    public function storeProgressProyek()
+    public function storeProgressProyek(Request $request, $id_proyek)
     {
-        
+        $progress = New ProgressProyek;
+        $progress->lokasi = $request->lokasi;
+        $progress->progress = $request->progress;
+        $progress->status = $request->status;
+        $progress->persentase = $request->persentase;
+        $progress->id_proyek = $id_proyek;
+        $progress->save();
+        Session::flash('message', 'Menambah Progress Proyek Sukses!');
+        return Redirect::to('dashboard/proyek/'.$id_proyek.'/progress');
     }
 
-    public function editProgressProyek($id)
+    public function editProgressProyek($id_proyek, $id_progress)
     {
-        
+        $proyek = Proyek::findOrFail($id_proyek);
+        $progress_proyek = ProgressProyek::findOrFail($id_progress);
+        $status_proyek   = [''=>'--Pilih Status--'] + Status::pluck('name', 'id')->all();
+        return view('dashboard.proyek.progress.edit', compact('proyek', 'progress_proyek', 'status_proyek'));
     }
     
-    public function updateProgressProyek(Request $request, $id)
+    public function updateProgressProyek(Request $request, $id_proyek, $id_progress)
     {
-        
+        $progress_proyek = ProgressProyek::findOrFail($id_progress);
+        $progress_proyek->lokasi = $request->lokasi;
+        $progress_proyek->progress = $request->progress;
+        $progress_proyek->status = $request->status;
+        $progress_proyek->persentase = $request->persentase;
+        $progress_proyek->id_proyek = $id_proyek;
+        $progress_proyek->save();
+        Session::flash('message', 'Mengganti Progress Proyek Sukses!');
+        return Redirect::to('dashboard/proyek/'.$id_proyek.'/progress');
     }
 
-    public function destroyProgressProyek($id)
+    public function destroyProgressProyek($id_proyek, $id_progress)
     {
-        
+        $progress_proyek = ProgressProyek::findOrFail($id_progress);
+        $progress_proyek->delete();
+        Session::flash('message', 'Menghapus Progress Proyek Sukses!');
+        return Redirect::to('dashboard/proyek/'.$id_proyek.'/progress');
     }
 }

@@ -69,7 +69,7 @@
             <div class="col-xs-12">
                 <div class="form-group pull-right">
                     {!! Form::submit('Save', array('class' => 'btn btn-primary')) !!}
-                    <a class="btn btn-small btn-warning" href="{{ URL::to('dashboard/proyek/'.$id_proyek.'/schedule') }}">Cancel</a>
+                    <a class="btn btn-small btn-warning" href="{{ URL::to('dashboard/proyek/'.$proyek->id.'/schedule') }}">Cancel</a>
                     {!! Form::close() !!}
                 </div>
             </div>

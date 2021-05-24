@@ -1,6 +1,6 @@
 <?php
 namespace App\Components;
-use App\Barang, App\User, App\Proyek, App\MaterialProyek, App\ScheduleProyek;
+use App\Barang, App\User, App\Proyek, App\MaterialProyek, App\ScheduleProyek, App\ProgressProyek;
 use DB;
 
 class Asset {
@@ -27,5 +27,9 @@ class Asset {
   public function scheduleProyekCount($id_proyek)
   {
     return ScheduleProyek::where('id_proyek', $id_proyek)->count();
+  }
+  public function progressProyekCount($id_proyek)
+  {
+    return ProgressProyek::where('id_proyek', $id_proyek)->count();
   }
 }
