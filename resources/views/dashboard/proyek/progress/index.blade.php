@@ -37,7 +37,7 @@ $(document).ready(function() {
 	<div class="box-header">
 		<h3 class="box-title">
 		<a href="{{route('dashboard.proyek.progress.create', ['id_proyek' => $proyek->id])}}" class="btn btn-primary btn-sm" id="btn-add"><i class="fa fa-plus"></i> Tambah Progress</a>
-        <a href="javascript:void(0)" class="btn btn-success btn-sm" id="btn-add"><i class="fa fa-download"></i> Download PDF</a>
+        {{-- <a href="javascript:void(0)" class="btn btn-success btn-sm" id="btn-add"><i class="fa fa-download"></i> Download PDF</a> --}}
 		</h3>
 	</div>
 	<!-- /.box-header -->
