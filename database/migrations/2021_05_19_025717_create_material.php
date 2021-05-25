@@ -15,7 +15,7 @@ class CreateMaterial extends Migration
     {
         Schema::create('material', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('material');
+            $table->string('nama_material');
             $table->timestamps();
         });
     }
