@@ -64,6 +64,7 @@ $(document).ready(function() {
                         {!! Form::open(['route' => ['dashboard.proyek.destroy', $value->id], 'method' => 'delete']) !!}
 			            <a href="{!! route('dashboard.proyek.show', $value->id) !!}" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-eye-open"></i></a>
 						<a href="{!! route('dashboard.proyek.edit', $value->id) !!}" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+						<a href="{{route('dashboard.proyek.pdf', ['id_proyek' => $value->id])}}" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-download-alt"></i></a>
 			            <a onclick="if (!confirm('Benar Ingin Menghapus?')) {return false;};">
 			              <button type="submit" class="btn btn-xs btn-danger delete"><i class="glyphicon glyphicon-trash"></i></button>
 			            </a>

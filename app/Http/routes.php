@@ -48,6 +48,7 @@ Route::resource('dashboard/material', 'MaterialController');
 
 // Proyek
 Route::resource('dashboard/proyek', 'ProyekController');
+Route::get('dashboard/proyek_pdf/{id_proyek}', ['as' => 'dashboard.proyek.pdf', 'uses' => 'laporanController@pdfProyek']);
 
 // Material Proyek
 Route::get('dashboard/proyek/{id_proyek}/material', ['as' => 'dashboard.proyek.material.index', 'uses' => 'ProyekController@indexMaterialProyek']);
