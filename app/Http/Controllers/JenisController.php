@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\JenisRequest;
-use App\Jenis;
+use App\Jenis, App\Barang;
 use Session, Redirect, Validator;
 
 class JenisController extends Controller
@@ -94,9 +94,14 @@ class JenisController extends Controller
     public function destroy($id)
     {
       $jenis = Jenis::find($id);
-      $jenis->delete();
-      Session::flash('message', 'Menghapus Jenis Sukses!');
-      return Redirect::to('dashboard/jenis');
+      if (Barang::where('jenis_id', $id)->count() > 0) {
+        Session::flash('message', 'Jenis '.$jenis->name.' sedang dipakai!');
+        return Redirect::to('dashboard/jenis');
+      } else {
+        $jenis->delete();
+        Session::flash('message', 'Menghapus Jenis Sukses!');
+        return Redirect::to('dashboard/jenis');
+      }
     }
 
     public function addJenis(Request $request)

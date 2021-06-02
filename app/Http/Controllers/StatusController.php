@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\StatusRequest;
-use App\Status;
+use App\Status, App\Barang, App\Proyek;
 use Session, Redirect;
 
 class StatusController extends Controller
@@ -98,9 +98,14 @@ class StatusController extends Controller
     public function destroy($id)
     {
       $status = Status::find($id);
-      $status->delete();
-      Session::flash('message', 'Menghapus Status Sukses!');
-      return Redirect::to('dashboard/status');
+      if (Barang::where('status_id', $id)->count() > 0 || Proyek::where('status_proyek', $id)->count() > 0) {
+        Session::flash('message', 'Status '.$status->name.' sedang dipakai!');
+        return Redirect::to('dashboard/status');
+      } else {
+        $status->delete();
+        Session::flash('message', 'Menghapus Status Sukses!');
+        return Redirect::to('dashboard/status');
+      }
     }
 
     public function addStatus(Request $request)

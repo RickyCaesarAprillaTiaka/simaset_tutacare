@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Material;
+use App\Material, App\MaterialProyek;
 use Session, Redirect;
 
 class MaterialController extends Controller
@@ -93,8 +93,13 @@ class MaterialController extends Controller
     public function destroy($id)
     {
         $material = Material::find($id);
-        $material->delete();
-        Session::flash('message', 'Menghapus Material Sukses!');
-        return Redirect::to('dashboard/material');
+        if (MaterialProyek::where('id_material', $id)->count() > 0) {
+            Session::flash('message', 'Material '.$material->name.' sedang dipakai!');
+            return Redirect::to('dashboard/material');
+        } else {
+            $material->delete();
+            Session::flash('message', 'Menghapus Material Sukses!');
+            return Redirect::to('dashboard/material');
+        }   
     }
 }

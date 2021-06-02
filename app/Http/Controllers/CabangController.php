@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\CabangRequest;
-use App\Cabang;
+use App\Cabang, App\Barang;
 use Session, Redirect, Validator;
 
 class CabangController extends Controller
@@ -94,9 +94,14 @@ class CabangController extends Controller
     public function destroy($id)
     {
       $cabang = Cabang::find($id);
-      $cabang->delete();
-      Session::flash('message', 'Menghapus Cabang Sukses!');
-      return Redirect::to('dashboard/cabang');
+      if (Barang::where('cabang_id', $id)->count() > 0) {
+        Session::flash('message', 'Cabang '.$cabang->name.' sedang dipakai!');
+        return Redirect::to('dashboard/cabang');
+      } else {
+        $cabang->delete();
+        Session::flash('message', 'Menghapus Cabang Sukses!');
+        return Redirect::to('dashboard/cabang');
+      }
     }
 
     public function addCabang(Request $request)
